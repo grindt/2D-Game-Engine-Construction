@@ -26,7 +26,7 @@ gallow_piece_1_bounds = (10,550,400,20)
 gallow_piece_2_bounds = (200,50,20,500)
 gallow_piece_3_bounds = (200,40,200,20)
 gallow_piece_4_bounds = (400,40,20,100)
-gallow_color = (255, 255, 255)
+gallow_color = (255, 0, 0)
 
 gallow_piece_1 = ac.make_basic_rectangle(gallow_piece_1_bounds, gallow_color)
 gallow_piece_2 = ac.make_basic_rectangle(gallow_piece_2_bounds, gallow_color)
@@ -53,7 +53,7 @@ word = word_list[random.randint(0, len(words) - 1)]
 while len(word) > 8 or len(word) < 5:
     word = word_list[random.randint(0, len(words) - 1)]
 
-letter_slot_color = (255, 255, 255)
+letter_slot_color = (0, 255, 0)
 for i in range(len(word)):
     letter_slot_bounds = (10 + (100 * i) + (10 * i),680,100,20)
 
@@ -73,7 +73,7 @@ right_arm_bounds = (415, 250, 100, 10)
 upper_leg_bounds = (305, 400, 200, 10)
 left_leg_bounds = (305, 400, 10, 100)
 right_leg_bounds = (495, 400, 10, 100)
-hangman_color = (255, 10, 100)
+hangman_color = (0, 0, 255)
 
 head = ac.make_basic_circle(head_radius, hangman_color, head_pos)
 body = ac.make_basic_rectangle(body_bounds, hangman_color)

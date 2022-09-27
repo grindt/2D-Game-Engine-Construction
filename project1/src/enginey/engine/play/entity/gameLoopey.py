@@ -11,10 +11,8 @@ class GameLoopey():
     def loop(self):
         self.init_draw()
         letterHandler = ac.make_letter_handler(self.word)
-        print(self.word)
 
         isPlaying = True
-
         while isPlaying:
 
             #do endstate checking
