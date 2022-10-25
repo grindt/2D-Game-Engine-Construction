@@ -3,7 +3,7 @@ from enginey.engine.actor.entity.circle import Circle
 
 class DrawCircleAction():
     def __init__(self):
-        self.types = ["display"]
+        self.types = ["draw"]
         self.entity_state = None
         self.verbose = False
         self.name = "draw_circle_action"

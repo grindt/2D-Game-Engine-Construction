@@ -2,7 +2,7 @@ import pygame
 
 class DrawLetterAction():
     def __init__(self):
-        self.types = ["display"]
+        self.types = ["draw"]
         self.entity_state = None
         self.verbose = False
         self.name = "draw_letter_action"

@@ -2,7 +2,7 @@ import pygame
 
 class DrawRectangleAction():
     def __init__(self):
-        self.types = ["display"]
+        self.types = ["draw"]
         self.entity_state = None
         self.verbose = False
         self.name = "draw_rectangle_action"

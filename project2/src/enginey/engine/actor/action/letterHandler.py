@@ -14,7 +14,7 @@ class LetterHandler():
                 return True
         return False
 
-    def getGuess(self, e):
+    def getLetter(self, e):
         if e.key == pygame.K_a:
             return 'a'
         if e.key == pygame.K_b:

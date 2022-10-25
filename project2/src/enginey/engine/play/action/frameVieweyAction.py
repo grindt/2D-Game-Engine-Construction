@@ -15,7 +15,7 @@ class FrameVieweyAction():
         return
 
     def condition_to_act(self):
-        if len(self.entities) > 0 and (type(self.entities[len(self.entities)-1]) == type(Letter(0, "s"))):
+        if len(self.entities) > 0:
             return True
         return False
 
@@ -34,10 +34,5 @@ class FrameVieweyAction():
     def init_draw(self, screen, num):
         for i in range(num):
             self.entities.pop(0).actions[0].act(screen)
-        pygame.display.flip()
-        return
-
-    def make_next_body_part(self, screen):
-        self.entities.pop(0).actions[0].act(screen)
         pygame.display.flip()
         return
