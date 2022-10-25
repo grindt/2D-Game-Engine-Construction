@@ -6,6 +6,7 @@ class Letter():
         self.location = location
         self.color = color
         self.active = True
+        self.children = []
         return
 
     def insert_action(self, a):

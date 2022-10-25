@@ -7,6 +7,7 @@ class Rectangle():
         self.template = None
         self.verbose = False
         self.active = True
+        self.children = []
         return
 
     def insert_action(self, a):

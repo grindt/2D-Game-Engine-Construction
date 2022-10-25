@@ -1,4 +1,5 @@
 from pygame.locals import *
+import enginey.engine.utility as utl
 
 class ButtonPressed:
     def __init__(self):
@@ -14,10 +15,11 @@ class ButtonPressed:
             return False
         return self.entity_state.is_inside(event.pos)
 
-    def act(self, event):
-        if self.condition_to_act(event):
-            for c in self.children:
-                c.act(self.entity_state.screen)
+    def act(self, *args):
+        for c in self.children:
+            c.act(self.entity_state.screen)
+        self.entity_state.children[0].insert_action(utl.make_start())
+        self.entity_state.children[0].active = True
         return
 
     def insert_child(self, c):

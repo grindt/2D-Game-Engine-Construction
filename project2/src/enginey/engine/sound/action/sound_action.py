@@ -1,11 +1,11 @@
-import time
+from pygame import mixer
 
-class Start():
+class SoundAction():
     def __init__(self):
-        self.types = ["event"]
+        self.types = ["draw"]
         self.entity_state = None
         self.verbose = False
-        self.name = "start"
+        self.name = "play_sound_action"
         return
 
     def condition_to_act(self):
@@ -15,9 +15,18 @@ class Start():
             return False
         return True
 
-    def act(self):
+    def act(self, *args):
         if self.condition_to_act():
-            self.entity_state.startTime = round(time.time()*1000)
+            self.playSound()
         if self.verbose:
             print(self.name + " for " + self.entity_state.name)
+        return
+
+    def playSound(self):
+        
+        mixer.init()
+        mixer.music.load(self.entity_state.file)
+        mixer.music.set_volume(self.entity_state.volume)
+        mixer.music.play()
+
         return

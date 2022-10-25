@@ -24,7 +24,7 @@ class DrawHUDAction():
         return
 
     def handleChildren(self):
-        for entity in self.entity_state.childEntities:
+        for entity in self.entity_state.children:
             if entity.active:
                 for action in entity.actions:
                     if action.name == "increment":

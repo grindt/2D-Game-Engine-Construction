@@ -1,4 +1,4 @@
-import datetime
+import time
 
 class Update():
     def __init__(self):
@@ -11,13 +11,13 @@ class Update():
     def condition_to_act(self):
         if self.entity_state == None:
             return False
-        if self.entity_state.active == True:
+        if self.entity_state.active == False:
             return False
         return True
 
     def act(self):
         if self.condition_to_act():
-            self.entity_state.currentTime = datetime.datetime.now()
+            self.entity_state.currentTime = round(time.time()*1000)
         if self.verbose:
             print(self.name + " for " + self.entity_state.name)
         return

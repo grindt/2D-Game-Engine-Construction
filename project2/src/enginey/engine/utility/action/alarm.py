@@ -1,3 +1,5 @@
+import enginey.engine.sound as snd
+
 class Alarm():
     def __init__(self, allotedTime):
         self.types = ["event"]
@@ -11,7 +13,7 @@ class Alarm():
     def condition_to_act(self):
         if self.entity_state == None:
             return False
-        if self.entity_state.active == True:
+        if self.entity_state.active == False:
             return False
         if self.entity_state.elapsed_time() < self.allotedTime:
             return False
@@ -19,9 +21,8 @@ class Alarm():
 
     def act(self):
         if self.condition_to_act():
-            for child in self.children:
-                child.act()
+            self.entity_state.parent.children[1].insert_action(snd.make_sound_action())
+            self.entity_state.parent.actions[0].act()
         if self.verbose:
             print(self.name + " for " + self.entity_state.name)
-        self.entity_state.actions.remove(self)
         return

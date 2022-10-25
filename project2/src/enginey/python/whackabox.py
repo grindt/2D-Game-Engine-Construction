@@ -30,7 +30,7 @@ class GenerateMessage():
     def draw(self, screen):
         msgToDisplay = self.entity_state.message + str(self.entity_state.counter)
 
-        pygame.draw.rect(screen, (0,0,0), (self.location[0], self.location[1], 180, 30) )
+        pygame.draw.rect(screen, (0,0,0), (self.location[0], self.location[1], 190, 30) )
 
         font = pygame.font.SysFont('Comic Sans MS', 20)
         text_surface = font.render(msgToDisplay, False, (255, 255, 255))
@@ -73,10 +73,10 @@ class Move():
 ###  Main Game Code:
 ###
 
-import enginey.engine.actor as ac
 import enginey.engine.play as pl
 import enginey.engine.ui as ui
 import enginey.engine.utility as utl
+import enginey.engine.sound as snd
 
 pygame.init()
 
@@ -102,9 +102,6 @@ totalCnt = utl.make_total_counter("Total Squares: ")
 sucessCnt.insert_action(GenerateMessage((10,10)))
 totalCnt.insert_action(GenerateMessage((10,50)))
 
-sucessCnt.insert_action(utl.make_increment())
-totalCnt.insert_action(utl.make_increment())
-
 new_hud.insert_child(sucessCnt)
 new_hud.insert_child(totalCnt)
 
@@ -126,8 +123,28 @@ press_action.insert_child(Move())
 new_button.insert_action(press_action)
 new_button.insert_action(ui.make_draw_button())
 
-game_content.append(new_button)
+timer = utl.make_timer()
+timer.insert_action(utl.make_alarm(3000))
+timer.insert_action(utl.make_update())
 
+new_button.insert_children(timer)
+
+###
+###  Audio Setup
+###
+
+sound_1_file = "../assets/sounds/correct_sound.mp3"
+sound_2_file = "../assets/sounds/timeout_sound.mp3"
+
+sound_volume = 0.5
+
+correct_sound = snd.make_sound(sound_1_file, sound_volume)
+timeout_sound = snd.make_sound(sound_2_file, sound_volume)
+
+new_button.insert_children(timeout_sound)
+
+game_content.append(new_button)
+game_content.append(correct_sound)
 
 ################## Looper #############################################
 

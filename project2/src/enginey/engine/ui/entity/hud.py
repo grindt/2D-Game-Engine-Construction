@@ -6,7 +6,7 @@ class HUD():
         self.template = None
         self.verbose = False
         self.active = True
-        self.childEntities = []
+        self.children = []
 
     def insert_action(self, a):
         a.entity_state = self
@@ -15,5 +15,5 @@ class HUD():
     
     def insert_child(self, e):
         e.parent = self
-        self.childEntities.append(e)
+        self.children.append(e)
         return e

@@ -9,12 +9,18 @@ class BasicButton():
         self.template = None
         self.verbose = False
         self.active = True
+        self.children = []
         return
 
     def insert_action(self, a):
         a.entity_state = self
         self.actions.append(a) 
         return a
+
+    def insert_children(self, c):
+        c.parent = self
+        self.children.append(c)
+        return c
 
     def is_inside(self, pos):
         if pos[0] < self.bounds[0]:

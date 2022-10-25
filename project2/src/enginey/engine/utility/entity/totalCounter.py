@@ -7,6 +7,7 @@ class TotalCounter():
         self.template = None
         self.verbose = False
         self.active = True
+        self.children = []
 
     def insert_action(self, a):
         a.entity_state = self
