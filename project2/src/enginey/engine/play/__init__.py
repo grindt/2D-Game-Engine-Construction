@@ -17,3 +17,7 @@ def make_frame_viewer(screen):
 def make_screen_display_action():
     import enginey.engine.play.action.frameVieweyAction as fv
     return fv.FrameVieweyAction()
+
+def make_terminate():
+    import enginey.engine.play.action.terminate as term
+    return term.Terminate()
