@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import enginey.engine.actor as ac
 import enginey.engine.play as term
+import enginey.engine.utility as utl
 
 class GameLoopey():
     def __init__(self, game_content):
@@ -28,12 +29,16 @@ class GameLoopey():
                             if action.name == "button_pressed_action":
                                 for event in events:
                                     if event.type == MOUSEBUTTONDOWN:
-                                        action.act(event)
+                                        if action.condition_to_act(event):
+                                            action.act(event)
+                                            self.game_content[1].childEntities[0].insert_action(utl.make_increment())
+                                            self.game_content[1].childEntities[1].insert_action(utl.make_increment())
                                         break
                             elif action.name == "activate_timer" \
                                 or action.name == "deactivate_timer" \
                                 or action.name == "increment" \
                                 or action.name == "start":
+                                print("hi")
                                 action.act()
                                 entity.actions.remove(action)
 
@@ -52,11 +57,3 @@ class GameLoopey():
                     isPlaying = False
 
         term.make_terminate().wait_for_exit()
-
-    def make_sentence(self, sentence):
-        fontSize = 40
-        color = (255, 255, 255)
-        location = (600, 400)
-        letter_display = ac.make_basic_letter(fontSize, sentence, color, location)
-        letter_display.insert_action(ac.make_draw_letter_action())
-        self.game_content[0].actions[0].insert_entity(letter_display)

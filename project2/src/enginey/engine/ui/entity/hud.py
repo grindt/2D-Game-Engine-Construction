@@ -1,8 +1,8 @@
 class HUD():
-    def __init__(self, screenSize, name="HUD"):
+    def __init__(self, screen, name="HUD"):
         self.actions = []
         self.name = name
-        self.screenSize = screenSize
+        self.screen = screen
         self.template = None
         self.verbose = False
         self.active = True

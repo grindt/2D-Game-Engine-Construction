@@ -28,7 +28,9 @@ class GenerateMessage():
         return
 
     def draw(self, screen):
-        msgToDisplay = self.entity_state.message + self.entity_state.counter
+        msgToDisplay = self.entity_state.message + str(self.entity_state.counter)
+
+        pygame.draw.rect(screen, (0,0,0), (self.location[0], self.location[1], 180, 30) )
 
         font = pygame.font.SysFont('Comic Sans MS', 20)
         text_surface = font.render(msgToDisplay, False, (255, 255, 255))
@@ -58,9 +60,12 @@ class Move():
     def draw(self, screen):
         import random as rand
 
+        pygame.draw.rect(screen, (0,0,0), self.entity_state.entity_state.bounds )
+        pygame.display.update()
+
         self.entity_state.entity_state.color = (rand.randint(10,255),rand.randint(10,255), rand.randint(10,255))
-        self.entity_state.entity_state.location = (rand.randint(10,1000), rand.randint(10,600), rand.randint(100,800), rand.randint(100,800))
-        self.entity_state.entity_state.actions[1].act()
+        self.entity_state.entity_state.bounds = (rand.randint(10,1000), rand.randint(10,600), rand.randint(60,500), rand.randint(60,500))
+        self.entity_state.entity_state.insert_action(ui.make_draw_button())
         pygame.display.update()
         return
 
@@ -90,12 +95,15 @@ game_content = [ viewer ]
 ###  HUD setup
 ###
 
-new_hud = ui.make_hud([1280, 720])
+new_hud = ui.make_hud(viewer.screen)
 sucessCnt = utl.make_success_counter("Successful Hits: ")
 totalCnt = utl.make_total_counter("Total Squares: ")
 
 sucessCnt.insert_action(GenerateMessage((10,10)))
 totalCnt.insert_action(GenerateMessage((10,50)))
+
+sucessCnt.insert_action(utl.make_increment())
+totalCnt.insert_action(utl.make_increment())
 
 new_hud.insert_child(sucessCnt)
 new_hud.insert_child(totalCnt)
@@ -113,12 +121,11 @@ starting_button_color = (255, 255, 255)
 new_button = ui.make_basic_button("", viewer.screen, starting_button_bounds, starting_button_color)
 
 press_action = ui.make_press_button()
-press_action.children.append(Move())
+press_action.insert_child(Move())
 
 new_button.insert_action(press_action)
 new_button.insert_action(ui.make_draw_button())
 
-display.insert_entity(new_button)
 game_content.append(new_button)
 
 

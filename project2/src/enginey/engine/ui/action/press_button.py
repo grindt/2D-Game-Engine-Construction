@@ -12,16 +12,15 @@ class ButtonPressed:
             return False
         if self.entity_state.active == False:
             return False
-        if event.type == MOUSEBUTTONDOWN:
-            # check whether the mouse button is down inside the button area
-            pos = event.pos
-            return self.entity_state.is_inside(pos)
-        return False
+        return self.entity_state.is_inside(event.pos)
 
     def act(self, event):
         if self.condition_to_act(event):
             for c in self.children:
-                c.act(event)
-            if self.verbose:
-                print( self.name + " for " + self.entity_state.name + " at " + str(event.pos))
+                c.act(self.entity_state.screen)
+        return
+
+    def insert_child(self, c):
+        c.entity_state = self
+        self.children.append(c)
         return

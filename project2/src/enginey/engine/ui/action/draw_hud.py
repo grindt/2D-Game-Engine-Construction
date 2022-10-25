@@ -16,7 +16,7 @@ class DrawHUDAction():
             return False
         return True
 
-    def act(self, data):
+    def act(self, args):
         if self.condition_to_act():
             self.handleChildren()
             if self.verbose:
@@ -27,5 +27,9 @@ class DrawHUDAction():
         for entity in self.entity_state.childEntities:
             if entity.active:
                 for action in entity.actions:
-                    action.act()
+                    if action.name == "increment":
+                        action.act()
+                        entity.actions.remove(action)
+                    else:
+                        action.act(self.entity_state.screen)
         return
