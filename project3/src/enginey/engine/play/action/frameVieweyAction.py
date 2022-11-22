@@ -20,7 +20,7 @@ class FrameVieweyAction():
         return False
 
     def act(self, data):
-        while self.condition_to_act():
+        if self.condition_to_act():
             self.make_entity_act(data)
             if self.verbose:
                 print(self.name + " for " + self.entity_state.name)
@@ -28,11 +28,10 @@ class FrameVieweyAction():
         return
 
     def make_entity_act(self, screen):
-        self.entities.pop().actions[0].act(screen)
-        return
-
-    def init_draw(self, screen, num):
-        for i in range(num):
-            self.entities.pop(0).actions[0].act(screen)
-        pygame.display.flip()
+        screen.fill((0,0,0))
+        for entity in self.entities:
+            if entity.active:
+                for action in entity.actions:
+                    if(action.types[0] == "draw"):
+                        action.act(screen)
         return

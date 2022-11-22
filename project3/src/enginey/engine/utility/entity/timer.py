@@ -8,8 +8,9 @@ class Timer():
         self.currentTime = 0
         self.template = None
         self.verbose = False
-        self.active = False
+        self.active = True
         self.children = []
+        self.alarmChild = []
 
     def insert_action(self, a):
         a.entity_state = self
@@ -24,3 +25,9 @@ class Timer():
         if self.active:
             return self.currentTime - self.startTime
         return 0
+
+    def alarm_triggered(self):
+        print("triggered")
+        for c in self.alarmChild:
+            c.active = True
+        self.actions.pop(0)

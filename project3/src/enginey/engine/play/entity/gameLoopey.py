@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-import enginey.engine.actor as ac
 import enginey.engine.play as term
 import enginey.engine.utility as utl
 import enginey.engine.sound as snd
@@ -17,14 +16,7 @@ class GameLoopey():
             self.events = pygame.event.get()
 
             #handle all active entities
-            for entity in self.game_content:
-                if entity.active:
-                    for action in entity.actions:
-                        self.actionHandler(action, entity)
-                    for child in entity.children:
-                        if child.active:
-                            for action in child.actions:
-                                self.actionHandler(action, child)
+            self.entityHandler(self.game_content)
 
             #do event handling
             for event in self.events:
@@ -38,10 +30,6 @@ class GameLoopey():
     def actionHandler(self, action, entity):
         if action.types[0] == "display":
             action.act(self.game_content[0].screen)
-
-        if action.types[0] == "draw":
-            action.act(self.game_content[0].screen)
-            entity.actions.remove(action)
 
         if action.types[0] == "event":
             if action.name == "button_pressed_action":
@@ -69,3 +57,15 @@ class GameLoopey():
 
         if action.types[0] == "loop":
             action.act()
+        
+        if len(action.types) > 1:
+            if action.types[1] == "loop":
+                action.act()
+    
+    def entityHandler(self, entities):
+        for entity in entities:
+            if entity.active:
+                for action in entity.actions:
+                    self.actionHandler(action, entity)
+                if len(entity.children) > 0:
+                    self.entityHandler(entity.children)

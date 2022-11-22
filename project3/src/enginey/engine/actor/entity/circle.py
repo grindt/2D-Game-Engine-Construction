@@ -8,6 +8,7 @@ class Circle():
         self.template = None
         self.verbose = False
         self.active = True
+        self.active_particle = []
         self.children = []
 
     def insert_action(self, a):

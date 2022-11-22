@@ -21,8 +21,7 @@ class Alarm():
 
     def act(self):
         if self.condition_to_act():
-            self.entity_state.parent.children[1].insert_action(snd.make_sound_action())
-            self.entity_state.parent.actions[0].act()
+            self.entity_state.alarm_triggered()
         if self.verbose:
             print(self.name + " for " + self.entity_state.name)
         return
